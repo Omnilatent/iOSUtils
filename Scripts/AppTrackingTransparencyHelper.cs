@@ -6,7 +6,7 @@ using UnityEngine;
 using Unity.Advertisement.IosSupport;
 //#endif
 
-public class AppTransparencyTrackingHelper : MonoBehaviour
+public class AppTrackingTransparencyHelper : MonoBehaviour
 {
     [SerializeField] bool initOnStart = true;
     public static Action<int> onTrackingStatusReceived;
@@ -20,7 +20,7 @@ public class AppTransparencyTrackingHelper : MonoBehaviour
     public static void Init(Action<int> onTrackingStatusReceived)
     {
 #if UNITY_IOS
-        AppTransparencyTrackingHelper.onTrackingStatusReceived += onTrackingStatusReceived;
+        AppTrackingTransparencyHelper.onTrackingStatusReceived += onTrackingStatusReceived;
         // Check the user's consent status.
         // If the status is undetermined, display the request request:
         if (ATTrackingStatusBinding.GetAuthorizationTrackingStatus() == ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED && Application.platform == RuntimePlatform.IPhonePlayer)
