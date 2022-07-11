@@ -6,19 +6,21 @@ using UnityEngine;
 using Unity.Advertisement.IosSupport;
 //#endif
 
-public class AppTrackingTransparencyHelper : MonoBehaviour
+namespace Omnilatent.iOSUtils
 {
-    [SerializeField] bool initOnStart = true;
-    public static Action<int> onTrackingStatusReceived;
-
-    // Start is called before the first frame update
-    void Start()
+    public class AppTrackingTransparencyHelper : MonoBehaviour
     {
-        if (initOnStart) Init(null);
-    }
+        [SerializeField] bool initOnStart = true;
+        public static Action<int> onTrackingStatusReceived;
 
-    public static void Init(Action<int> onTrackingStatusReceived)
-    {
+        // Start is called before the first frame update
+        void Start()
+        {
+            if (initOnStart) Init(null);
+        }
+
+        public static void Init(Action<int> onTrackingStatusReceived)
+        {
 #if UNITY_IOS
         AppTrackingTransparencyHelper.onTrackingStatusReceived += onTrackingStatusReceived;
         // Check the user's consent status.
@@ -34,13 +36,14 @@ public class AppTrackingTransparencyHelper : MonoBehaviour
         var status = ATTrackingStatusBinding.GetAuthorizationTrackingStatus();
         Debug.Log($"ATTracking status: {status}");
 #else
-        onTrackingStatusReceived?.Invoke(0);
+            onTrackingStatusReceived?.Invoke(0);
 #endif
-    }
+        }
 
-    private static void AuthorizationTrackingReceived(int status)
-    {
-        Debug.LogFormat("Tracking status received: {0}", status);
-        onTrackingStatusReceived?.Invoke(status);
+        private static void AuthorizationTrackingReceived(int status)
+        {
+            Debug.LogFormat("Tracking status received: {0}", status);
+            onTrackingStatusReceived?.Invoke(status);
+        }
     }
 }
