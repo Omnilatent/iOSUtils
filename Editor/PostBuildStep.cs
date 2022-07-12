@@ -1,10 +1,10 @@
 
-#if UNITY_IOS
+
 using UnityEditor;
 using UnityEditor.Callbacks;
-
+#if UNITY_IOS
 using UnityEditor.iOS.Xcode;
-
+#endif
 using System.IO;
 using UnityEngine;
 
@@ -12,6 +12,7 @@ namespace Omnilatent.iOSUtils.Editor
 {
     public class PostBuildStep
     {
+#if UNITY_IOS
         /// <summary>
         /// Description for IDFA request notification 
         /// [sets NSUserTrackingUsageDescription]
@@ -72,8 +73,8 @@ namespace Omnilatent.iOSUtils.Editor
             // Write to file
             capManager.WriteToFile();
         }
+#endif
 
-        //Setting is not implemented yet
         [MenuItem("Tools/Omnilatent/iOS Utils Setting")]
         public static void OpenInspectorSetting()
         {
@@ -81,4 +82,3 @@ namespace Omnilatent.iOSUtils.Editor
         }
     }
 }
-#endif
