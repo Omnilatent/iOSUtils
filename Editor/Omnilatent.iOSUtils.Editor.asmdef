@@ -1,0 +1,18 @@
+{
+    "name": "Omnilatent.iOSUtils.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f0ce415787313834bade34aae2811120"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
