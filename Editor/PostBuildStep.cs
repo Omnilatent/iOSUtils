@@ -43,8 +43,11 @@ namespace Omnilatent.iOSUtils.Editor
             // set values from the root obj
             PlistElementDict plistRoot = plistObj.root;
 
-            // Set value in plist
+            // Set Tracking Usage Description
             plistRoot.SetString("NSUserTrackingUsageDescription", UtilsSetting.LoadInstance().AppTrackingConsentDescription);
+
+            // Set ITSAppUsesNonExemptEncryption
+            plistRoot.SetBoolean("ITSAppUsesNonExemptEncryption", UtilsSetting.LoadInstance().UseNonExemptEncryption);
 
             // save
             File.WriteAllText(plistPath, plistObj.WriteToString());

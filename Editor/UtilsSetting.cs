@@ -16,6 +16,10 @@ namespace Omnilatent.iOSUtils.Editor
         [SerializeField] string appTrackingConsentDescription = "Your data will be used to provide you a better and personalized ad experience.";
         public string AppTrackingConsentDescription { get => appTrackingConsentDescription; }
 
+        [Header("Other")]
+        [SerializeField] bool useNonExemptEncryption = false;
+        public bool UseNonExemptEncryption { get => useNonExemptEncryption; }
+
         private const string settingsResDir = "Assets/Omnilatent/Resources";
 
         private const string settingsFile = "iOSUtilsSetting";
