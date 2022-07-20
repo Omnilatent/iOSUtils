@@ -49,6 +49,13 @@ namespace Omnilatent.iOSUtils.Editor
             // Set ITSAppUsesNonExemptEncryption
             plistRoot.SetBoolean("ITSAppUsesNonExemptEncryption", UtilsSetting.LoadInstance().UseNonExemptEncryption);
 
+            if (!string.IsNullOrEmpty(UtilsSetting.LoadInstance().FacebookClientToken))
+            {
+                // Change value of FacebookClientToken in Xcode plist
+                var buildKey = "FacebookClientToken";
+                plistRoot.SetString(buildKey, UtilsSetting.LoadInstance().FacebookClientToken);
+            }
+
             // save
             File.WriteAllText(plistPath, plistObj.WriteToString());
         }

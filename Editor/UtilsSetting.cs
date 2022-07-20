@@ -20,6 +20,9 @@ namespace Omnilatent.iOSUtils.Editor
         [SerializeField] bool useNonExemptEncryption = false;
         public bool UseNonExemptEncryption { get => useNonExemptEncryption; }
 
+        [SerializeField] string facebookClientToken;
+        public string FacebookClientToken { get => facebookClientToken; set => facebookClientToken = value; }
+
         private const string settingsResDir = "Assets/Omnilatent/Resources";
 
         private const string settingsFile = "iOSUtilsSetting";
