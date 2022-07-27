@@ -1,0 +1,14 @@
+{
+    "name": "com.omnilatent.iosutils",
+    "displayName": "Omni iOS Utilities",
+    "version": "0.1.0",
+    "unity": "2018.1",
+    "description": "Utility classes for helping integration with iOS such as App Tracking Transparency & Privacy Excempt",
+    "keywords": ["ios"],
+    "category": "Utility",
+    "author": {
+        "name": "Trong",
+        "email": "nguyentrong101094@gmail.com",
+        "url": "https://github.com/nguyentrong101094"
+  }
+}
