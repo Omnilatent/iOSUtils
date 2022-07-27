@@ -21,7 +21,7 @@ namespace Omnilatent.iOSUtils
 
         public static void Init(Action<int> onTrackingStatusReceived)
         {
-#if UNITY_IOS
+#if UNITY_IOS && !UNITY_EDITOR
         AppTrackingTransparencyHelper.onTrackingStatusReceived += onTrackingStatusReceived;
         // Check the user's consent status.
         // If the status is undetermined, display the request request:
