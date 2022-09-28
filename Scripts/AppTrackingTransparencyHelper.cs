@@ -40,6 +40,13 @@ namespace Omnilatent.iOSUtils
 #endif
         }
 
+#if UNITY_IOS
+        public static ATTrackingStatusBinding.AuthorizationTrackingStatus GetCurrentAuthorizationTrackingStatus()
+        {
+            return ATTrackingStatusBinding.GetAuthorizationTrackingStatus();
+        }
+#endif
+
         private static void AuthorizationTrackingReceived(int status)
         {
             Debug.LogFormat("Tracking status received: {0}", status);
