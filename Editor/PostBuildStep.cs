@@ -55,6 +55,12 @@ namespace Omnilatent.iOSUtils.Editor
                 var buildKey = "FacebookClientToken";
                 plistRoot.SetString(buildKey, UtilsSetting.LoadInstance().FacebookClientToken);
             }
+            
+            // Add SKAdNetworkIdentifiers
+            if (UtilsSetting.LoadInstance().SKAdNetworkIdentifiers != null && UtilsSetting.LoadInstance().SKAdNetworkIdentifiers.Count > 0)
+            {
+                PListProcessor.AddSKAdNetworkIdentifier(plistObj, UtilsSetting.LoadInstance().SKAdNetworkIdentifiers);
+            } 
 
             // save
             File.WriteAllText(plistPath, plistObj.WriteToString());

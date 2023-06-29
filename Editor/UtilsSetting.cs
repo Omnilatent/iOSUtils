@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Omnilatent.iOSUtils.Editor
 {
@@ -22,6 +23,9 @@ namespace Omnilatent.iOSUtils.Editor
 
         [SerializeField] string facebookClientToken;
         public string FacebookClientToken { get => facebookClientToken; set => facebookClientToken = value; }
+
+        [Tooltip("Required by Meta Ads")] [SerializeField]
+        public List<string> SKAdNetworkIdentifiers = new List<string>() { "v9wttpbfk9.skadnetwork", "n38lu8286q.skadnetwork" };
 
         private const string settingsResDir = "Assets/Omnilatent/Resources";
 
