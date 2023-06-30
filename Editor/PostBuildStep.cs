@@ -28,6 +28,10 @@ namespace Omnilatent.iOSUtils.Editor
                 AddPListValues(pathToXcode);
                 if (UtilsSetting.LoadInstance().UsePushNotification)
                     AddToEntitlements(buildTarget, pathToXcode);
+                if (!UtilsSetting.LoadInstance().EnableBitcode)
+                {
+                    ToggleBitcode.DisableBitcode(pathToXcode);
+                }
             }
         }
 

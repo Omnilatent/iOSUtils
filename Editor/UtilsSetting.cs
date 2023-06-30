@@ -27,6 +27,8 @@ namespace Omnilatent.iOSUtils.Editor
         [Tooltip("Required by Meta Ads")] [SerializeField]
         public List<string> SKAdNetworkIdentifiers = new List<string>() { "v9wttpbfk9.skadnetwork", "n38lu8286q.skadnetwork" };
 
+        [SerializeField] public bool EnableBitcode = false;
+
         private const string settingsResDir = "Assets/Omnilatent/Resources";
 
         private const string settingsFile = "iOSUtilsSetting";
