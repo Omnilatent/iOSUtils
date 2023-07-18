@@ -1,3 +1,4 @@
+#if UNITY_IOS
 using UnityEditor;
 using UnityEngine;
 using UnityEditor.iOS.Xcode;
@@ -29,3 +30,4 @@ namespace Omnilatent.iOSUtils.Editor
         }
     }
 }
+#endif

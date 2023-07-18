@@ -1,3 +1,4 @@
+#if UNITY_IOS
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -102,3 +103,4 @@ namespace Omnilatent.iOSUtils.Editor
         }
     }
 }
+#endif
