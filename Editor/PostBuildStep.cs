@@ -26,8 +26,7 @@ namespace Omnilatent.iOSUtils.Editor
             if (buildTarget == BuildTarget.iOS)
             {
                 AddPListValues(pathToXcode);
-                if (UtilsSetting.LoadInstance().UsePushNotification)
-                    AddToEntitlements(buildTarget, pathToXcode);
+                UpdatePBXProject(buildTarget, pathToXcode);
                 if (!UtilsSetting.LoadInstance().EnableBitcode)
                 {
                     ToggleBitcode.DisableBitcode(pathToXcode);
@@ -70,28 +69,42 @@ namespace Omnilatent.iOSUtils.Editor
             File.WriteAllText(plistPath, plistObj.WriteToString());
         }
 
-        public static void AddToEntitlements(BuildTarget buildTarget, string buildPath)
+        public static void UpdatePBXProject(BuildTarget buildTarget, string buildPath)
         {
             if (buildTarget != BuildTarget.iOS) return;
 
             // get project info
             string pbxPath = PBXProject.GetPBXProjectPath(buildPath);
-            var proj = new PBXProject();
-            proj.ReadFromFile(pbxPath);
-            var guid = proj.GetUnityMainTargetGuid();
+            var project = new PBXProject();
+            project.ReadFromFile(pbxPath);
+            var mainTargetGuid = project.GetUnityMainTargetGuid();
+            
+            if (UtilsSetting.LoadInstance().UsePushNotification)
+            {
+                // get entitlements path
+                string[] idArray = Application.identifier.Split('.');
+                var entitlementsPath = $"Unity-iPhone/{idArray[idArray.Length - 1]}.entitlements";
 
-            // get entitlements path
-            string[] idArray = Application.identifier.Split('.');
-            var entitlementsPath = $"Unity-iPhone/{idArray[idArray.Length - 1]}.entitlements";
+                // create capabilities manager
+                var capManager = new ProjectCapabilityManager(pbxPath, entitlementsPath, null, mainTargetGuid);
 
-            // create capabilities manager
-            var capManager = new ProjectCapabilityManager(pbxPath, entitlementsPath, null, guid);
+                // Add necessary capabilities
+                capManager.AddPushNotifications(true);
 
-            // Add necessary capabilities
-            capManager.AddPushNotifications(true);
+                // Write to file
+                capManager.WriteToFile();
+            }
 
-            // Write to file
-            capManager.WriteToFile();
+            if (!UtilsSetting.LoadInstance().EnableAlwaysEmbedSwiftStandardLibraries)
+            {
+                foreach (var targetGuid in new[] { mainTargetGuid, project.GetUnityFrameworkTargetGuid() })
+                {
+                    project.SetBuildProperty(targetGuid, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "NO");
+                }
+
+                project.SetBuildProperty(mainTargetGuid, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "NO");
+                project.WriteToFile(pbxPath);
+            }
         }
 #endif
 

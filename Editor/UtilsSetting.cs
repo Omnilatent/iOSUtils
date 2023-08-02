@@ -28,6 +28,9 @@ namespace Omnilatent.iOSUtils.Editor
         public List<string> SKAdNetworkIdentifiers = new List<string>() { "v9wttpbfk9.skadnetwork", "n38lu8286q.skadnetwork" };
 
         [SerializeField] public bool EnableBitcode = false;
+        
+        [Tooltip("Recommended value is False so game can be uploaded to App Store.")]
+        [SerializeField] public bool EnableAlwaysEmbedSwiftStandardLibraries = false;
 
         private const string settingsResDir = "Assets/Omnilatent/Resources";
 
