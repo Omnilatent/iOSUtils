@@ -81,18 +81,8 @@ namespace Omnilatent.iOSUtils.Editor
             
             if (UtilsSetting.LoadInstance().UsePushNotification)
             {
-                // get entitlements path
-                string[] idArray = Application.identifier.Split('.');
-                var entitlementsPath = $"Unity-iPhone/{idArray[idArray.Length - 1]}.entitlements";
-
-                // create capabilities manager
-                var capManager = new ProjectCapabilityManager(pbxPath, entitlementsPath, null, mainTargetGuid);
-
-                // Add necessary capabilities
-                capManager.AddPushNotifications(true);
-
-                // Write to file
-                capManager.WriteToFile();
+                Unity.Notifications.NotificationSettings.iOSSettings.AddRemoteNotificationCapability = true;
+                AddPushNotificationsCapability(project, pbxPath, mainTargetGuid);
             }
 
             if (!UtilsSetting.LoadInstance().EnableAlwaysEmbedSwiftStandardLibraries)
@@ -105,6 +95,21 @@ namespace Omnilatent.iOSUtils.Editor
                 project.SetBuildProperty(mainTargetGuid, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "NO");
                 project.WriteToFile(pbxPath);
             }
+        }
+
+        //Might get overriden by Unity's Mobile Notification package
+        private static void AddPushNotificationsCapability(PBXProject pbxProject, string pbxPath, string mainTargetGuid)
+        {
+            const string entitlementsPath = "Unity-iPhone.entitlements";
+            
+            pbxProject.AddFrameworkToProject(mainTargetGuid, "UserNotifications.framework", false);
+            File.WriteAllText(pbxPath, pbxProject.WriteToString());
+            
+            var isDevelopment = Debug.isDebugBuild;
+            var capabilities = new ProjectCapabilityManager(pbxPath, "app.entitlements", "Unity-iPhone");
+            capabilities.AddPushNotifications(isDevelopment);
+            capabilities.AddBackgroundModes(BackgroundModesOptions.RemoteNotifications);
+            capabilities.WriteToFile();
         }
 #endif
 

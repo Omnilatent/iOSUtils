@@ -10,5 +10,8 @@
         "name": "Trong",
         "email": "nguyentrong101094@gmail.com",
         "url": "https://github.com/nguyentrong101094"
-  }
+    },
+    "dependencies": {
+        "com.unity.mobile.notifications": "^2.4.0"
+    }
 }
